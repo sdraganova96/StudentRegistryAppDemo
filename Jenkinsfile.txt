@@ -20,17 +20,17 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
-                sh 'npm install -g wait-on kill-port'
+                zsh 'npm install'
+                zsh 'npm install -g wait-on kill-port'
             }
         }
 
         stage('Run tests') {
             steps {
-                sh 'start /b npm run start'
-                sh 'wait-on http://localhost:8081'
-                sh 'npm test'
-                sh 'kill-port 8081'
+                zsh 'start /b npm run start'
+                zsh 'wait-on http://localhost:8081'
+                zsh 'npm test'
+                zsh 'kill-port 8081'
             }
         }
     }
@@ -40,7 +40,7 @@ pipeline {
             echo 'CI Pipeline completed.'
         }
         failure {
-            sh 'kill-port 8081'
+            zsh 'kill-port 8081'
         }
     }
 }
